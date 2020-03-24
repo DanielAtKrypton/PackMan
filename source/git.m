@@ -46,11 +46,11 @@ function result = git(varargin)
     end
     while(true)
         fid = fopen(filename, 'rt' );
-        % contents = textscan(fid,'%s','Delimiter','\n');
-        % contents = contents{1};
-        contents = fscanf(fid, '%s');
+        contents = textscan(fid,'%s','Delimiter','\n');
+        contents = contents{1};
         fclose(fid);
         if ~isempty(contents)
+            pause(1);
             delete(filename);
             break;
         end
