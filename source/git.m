@@ -40,25 +40,18 @@ function result = git(varargin)
     v = ver;
     isRoboticsToolboxAvailable = any(strcmp('Robotics System Toolbox', {v.Name}));
     desiredRate = 5;
-    isRoboticsToolboxAvailable = false;
     if (isRoboticsToolboxAvailable)
         r = robotics.Rate(desiredRate);
         reset(r);
     end
     while(true)
         fid = fopen(filename, 'rt' );
-        contents = textscan(fid,'%s','Delimiter','\n');
-        contents = contents{1};
+        % contents = textscan(fid,'%s','Delimiter','\n');
+        % contents = contents{1};
+        contents = fscanf(fid, '%s');
         fclose(fid);
         if ~isempty(contents)
-            while(exist(filename, 'file'))
-                try
-                    delete(filename);
-                    break;
-                catch
-                    pause(1/desiredRate);
-                end
-            end
+            delete(filename);
             break;
         end
         if (isRoboticsToolboxAvailable)
